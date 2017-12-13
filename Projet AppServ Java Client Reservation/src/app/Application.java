@@ -22,8 +22,38 @@ public class Application {
 			PrintWriter sOut = new PrintWriter(socket.getOutputStream(), true);
 			
 			// Reader du texte
+			BufferedReader clavier = new BufferedReader(new InputStreamReader(System.in));
+			
+			// Connecté!
+			System.out.println("Connecté au serveur de reservation (" + socket.getPort() + ")");
+			
+			String line;
+			
+			// Envois au serveur
+			System.out.println("Entrez le numero du livre a reserver :");
+			line = clavier.readLine();
+			sOut.println(line);
+			System.out.println("Entrez votre numero d'abonne :");
+			line = clavier.readLine();
+			sOut.println(line);
+			
+			// Réponse du serveur
+			line = sIn.readLine();
+			
+			// Affiche la reponse du serveur
+			System.out.println(line);
 		}
 		catch(IOException e) {
+			System.err.println("Erreur du client : " + e);
+		}
+		
+		// Ferme le socket
+		try {
+			if(socket != null) {
+				socket.close();
+			}
+		}
+		catch(IOException exc) {
 			
 		}
 	}
