@@ -18,7 +18,7 @@ public class Application {
 		Biblio.addAbonne(new Abonne("Emmanuel","MACRON"));
 		Biblio.addAbonne(new Abonne("Peter","PAN"));
 		Biblio.addAbonne(new Abonne("Kylo","REN"));
-		Biblio.addAbonne(new Abonne("Anakin","SKYWALKER"));
+		Biblio.addAbonne(new Abonne("Luke","SKYWALKER"));
 		
 		// Ajout de livres
 		Biblio.addDocument(new Livre("La Pêche pour les Nuls","Vincent LALU"));
@@ -45,12 +45,12 @@ public class Application {
 		Biblio.addDocument(new Livre("Harry Potter et l'Enfant Maudit","J.K. ROWLING"));
 		Biblio.addDocument(new Livre("Les Animaux Fantastiques par Norbert Dragonneau","J.K. ROWLING"));
 		Biblio.addDocument(new Livre("La Politique pour les Nuls","Philipe REINHARD"));
-		Biblio.addDocument(new Livre("",""));
-		Biblio.addDocument(new Livre("",""));
-		Biblio.addDocument(new Livre("",""));
-		Biblio.addDocument(new Livre("",""));
-		Biblio.addDocument(new Livre("",""));
-		Biblio.addDocument(new Livre("",""));
+		Biblio.addDocument(new Livre("L'Humour pour les Nuls","Gordon ZOLA"));
+		Biblio.addDocument(new Livre("Alice au pays des merveilles","Walt DISNEY"));
+		Biblio.addDocument(new Livre("Comment tuer son père","OEdipe"));
+		Biblio.addDocument(new Livre("La Force pour les Nuls","Maitre YODA"));
+		Biblio.addDocument(new Livre("Le Guide de la Survie Extrême","Bear GRYLLS"));
+		Biblio.addDocument(new Livre("Belle La Coccinelle","Antoon KRINGS"));
 		
 		
 		
