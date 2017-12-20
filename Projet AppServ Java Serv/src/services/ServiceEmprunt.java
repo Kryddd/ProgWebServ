@@ -19,7 +19,8 @@ public class ServiceEmprunt implements Runnable{
 	
 	@Override
 	public void run() {
-		System.out.println("Connexion reservation " + this.numero + "demarrée");
+
+		System.out.println("Connexion reservation " + this.numero + " demarrée");
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			PrintWriter out = new PrintWriter(client.getOutputStream(), true);
@@ -32,6 +33,9 @@ public class ServiceEmprunt implements Runnable{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
+		System.out.println("Connexion reservation " + this.numero + " demarrée");
+
 		
 		
 	}

@@ -11,4 +11,12 @@ public class Bibliotheque {
 		docs = new ArrayList<Document>();
 		abonnes = new ArrayList<Abonne>();
 	}
+	
+	public void addDocument(Document d){
+		docs.add(d);
+	}
+	
+	public void addAbonne(Abonne a){
+		abonnes.add(a);
+	}
 }
