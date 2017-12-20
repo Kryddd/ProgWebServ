@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="Projet AppServ Java Client Reservation/src"/>
+	<classpathentry kind="src" path="Projet AppServ Java Serv/src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="Projet AppServ Java Client Reservation/bin"/>
+</classpath>

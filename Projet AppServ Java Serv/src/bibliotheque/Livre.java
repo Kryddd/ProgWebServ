@@ -22,19 +22,19 @@ public class Livre implements Document {
 	}
 
 	@Override
-	public void reserver(Abonne ab) throws PasLibreException {
+	public synchronized void reserver(Abonne ab) throws PasLibreException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void emprunter(Abonne ab) throws PasLibreException {
+	public synchronized void emprunter(Abonne ab) throws PasLibreException {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void retour() {
+	public synchronized void retour() {
 		// TODO Auto-generated method stub
 		
 	}
