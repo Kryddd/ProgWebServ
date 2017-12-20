@@ -1,4 +1,8 @@
-package bibliotheque;
+package documents;
+
+import bibliotheque.Abonne;
+import bibliotheque.Document;
+import bibliotheque.PasLibreException;
 
 public class Livre implements Document {
 	private static int cptLivre = 0;
@@ -23,7 +27,7 @@ public class Livre implements Document {
 
 	@Override
 	public synchronized void reserver(Abonne ab) throws PasLibreException {
-		// TODO Auto-generated method stub
+		// TODO Auto-gener0.ated method stub
 		
 	}
 
