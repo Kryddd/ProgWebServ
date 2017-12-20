@@ -6,7 +6,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import bibliotheque.Abonne;
 import bibliotheque.Bibliotheque;
+import bibliotheque.Document;
+import bibliotheque.PasLibreException;
 
 public class ServiceEmprunt implements Runnable{
 	private static int cptRes = 0;
@@ -21,22 +24,52 @@ public class ServiceEmprunt implements Runnable{
 	
 	@Override
 	public void run() {
-
+		String err = "";
+		Boolean numtrouve = false;
+		Boolean abotrouve = false;
 		System.out.println("Connexion reservation " + this.numero + " demarrée");
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 			
-			String numLivre = in.readLine();
+			int numLivre = Integer.parseInt(in.readLine());
+			int numAbonne = Integer.parseInt(in.readLine());
+		
+			for (Document doc : biblio.getDocs()) {
+				if(doc.numero() == numLivre){
+					numtrouve = true;
+					for (Abonne abo : biblio.getAbonnes()){
+						if(abo.numero() == numAbonne){
+							abotrouve = true;
+							try {
+								doc.emprunter(abo);
+							} catch (PasLibreException e) {
+								
+							}
+						} 						
+					}
+				}	
+			} 
+			
+			if (numtrouve == false || abotrouve == false){
+				if (numtrouve == false){
+					err +="Numéro livre inconnu. ";
+				}
+				if (abotrouve == false){
+					err+="Numéro abonné inconnu.";
+				}
+				out.println(err);
+			}else{
+				out.println("Livre emprunté avec succes !");
+			}
 			
 			
-			String numAbonne = in.readLine();
 			
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 
-		System.out.println("Connexion reservation " + this.numero + " demarrée");
+		System.out.println("Connexion reservation " + this.numero + " terminée");
 
 		
 		

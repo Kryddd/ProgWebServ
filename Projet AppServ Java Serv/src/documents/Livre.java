@@ -33,7 +33,13 @@ public class Livre implements Document {
 
 	@Override
 	public synchronized void emprunter(Abonne ab) throws PasLibreException {
-		// TODO Auto-generated method stub
+		if(this.emprunte == false){
+			if(this.reserve == false){
+				this.emprunte = true;
+			}else{
+				
+			}
+		}
 		
 	}
 

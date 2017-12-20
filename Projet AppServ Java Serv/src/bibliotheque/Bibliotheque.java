@@ -19,4 +19,14 @@ public class Bibliotheque {
 	public void addAbonne(Abonne a){
 		abonnes.add(a);
 	}
+
+	public List<Document> getDocs() {
+		return docs;
+	}
+
+	public List<Abonne> getAbonnes() {
+		return abonnes;
+	}
+	
+	
 }
