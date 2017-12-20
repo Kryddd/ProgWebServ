@@ -12,6 +12,7 @@ public class ServeurRetour implements Runnable {
 	
 	public ServeurRetour(int port, Bibliotheque biblio) throws IOException {
 		listenSocket = new ServerSocket(port);
+		this.biblio = biblio;
 	}
 	
 	@Override

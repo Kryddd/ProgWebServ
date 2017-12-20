@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import bibliotheque.Bibliotheque;
+import bibliotheque.Document;
 
 public class ServiceRetour implements Runnable {
 	private static int cptRes = 0;
@@ -17,19 +18,33 @@ public class ServiceRetour implements Runnable {
 	public ServiceRetour(Socket sock, Bibliotheque biblio) {
 		this.client = sock;
 		this.numero = cptRes++;
+		this.biblio = biblio;
 	}
 
 	@Override
 	public void run() {
+		Boolean numtrouve = false;
 		System.out.println("Connexion retour " + this.numero + " demarr�e");
 		
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 			
-			String numLivre = in.readLine();
+			int numLivre = Integer.parseInt(in.readLine());
+			//int numAbonne = Integer.parseInt(in.readLine());
 			
-			String numAbonne = in.readLine();
+			for (Document doc : biblio.getDocs()) {
+				if(doc.numero() == numLivre){
+					numtrouve = true;
+					doc.retour();
+				}
+			}
+			if (numtrouve == false){
+				out.println("Numéro livre inconnu.");
+			}else {
+				out.println("Livre retourné avec succés !");
+			}
+			
 		}
 		catch(IOException e) {
 			
