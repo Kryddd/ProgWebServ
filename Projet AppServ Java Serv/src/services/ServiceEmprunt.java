@@ -29,7 +29,7 @@ public class ServiceEmprunt implements Runnable{
 		Boolean numtrouve = false;
 		Boolean abotrouve = false;
 		Boolean pasLibre = false;
-		System.out.println("Connexion emprunt " + this.numero + " demarrée");
+		System.out.println("Connexion emprunt " + this.numero + " demarrÃ©e");
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			PrintWriter out = new PrintWriter(client.getOutputStream(), true);
@@ -55,18 +55,17 @@ public class ServiceEmprunt implements Runnable{
 			
 			if (numtrouve == false || abotrouve == false){
 				if (numtrouve == false){
-					err +="Numéro livre inconnu. ";
+					err +="NumÃ©ro livre inconnu. ";
 				}
 				if (abotrouve == false){
-					err+="Numéro abonné inconnu.";
+					err+="NumÃ©ro abonnÃ© inconnu.";
 				}
 				out.println(err);
 			}else{
-				
-				if(pasLibre = true){
-					out.println("Livre deja reservé par un abonné !");
+				if(pasLibre == true){
+					out.println("Livre deja reservÃ© par un abonnÃ© !");
 				}else{
-					out.println("Livre emprunté avec succes !");
+					out.println("Livre empruntÃ© avec succes !");
 				}
 			}
 						
@@ -79,7 +78,7 @@ public class ServiceEmprunt implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Connexion emprunt " + this.numero + " terminée");
+		System.out.println("Connexion emprunt " + this.numero + " terminÃ©e");
 
 		
 		

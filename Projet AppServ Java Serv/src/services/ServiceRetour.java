@@ -21,20 +21,21 @@ public class ServiceRetour implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println("Connexion retour " + this.numero + " demarrée");
+		System.out.println("Connexion retour " + this.numero + " demarrï¿½e");
 		
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			PrintWriter out = new PrintWriter(client.getOutputStream(), true);
 			
 			String numLivre = in.readLine();
+			
 			String numAbonne = in.readLine();
 		}
 		catch(IOException e) {
 			
 		}
 		
-		System.out.println("Connexion reservation " + this.numero + "terminée");
+		System.out.println("Connexion reservation " + this.numero + "terminï¿½e");
 		try {
 			client.close();
 		}

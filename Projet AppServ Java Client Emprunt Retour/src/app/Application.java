@@ -30,7 +30,7 @@ public class Application {
 					formatedinput = Integer.parseInt(line);
 				}
 				System.out.println("\ninput :" + line);
-				//Le client a selectionné un emprunt
+				//Le client a selectionnÃ© un emprunt
 				if(formatedinput == 1){
 					inputIsGood = true;
 					try {
@@ -40,8 +40,8 @@ public class Application {
 						PrintWriter sOut = new PrintWriter(socket.getOutputStream(), true);
 							
 							
-						// Connecté!
-						System.out.println("Connecté au serveur d'emprunt (" + socket.getPort() + ")");
+						// ConnectÃ©!
+						System.out.println("ConnectÃ© au serveur d'emprunt (" + socket.getPort() + ")");
 						
 						
 						// Envois au serveur
@@ -52,7 +52,7 @@ public class Application {
 						line = clavier.readLine();
 						sOut.println(line);
 						
-						// Réponse du serveur
+						// RÃ©ponse du serveur
 						line = sIn.readLine();
 						
 						// Affiche la reponse du serveur
@@ -65,7 +65,7 @@ public class Application {
 					
 					
 				
-				//Le client a selectionné un emprunt
+				//Le client a selectionnÃ© un emprunt
 				else if(formatedinput == 2){
 					inputIsGood = true;
 					try {
@@ -75,8 +75,8 @@ public class Application {
 						PrintWriter sOut = new PrintWriter(socket.getOutputStream(), true);
 							
 							
-						// Connecté!
-						System.out.println("Connecté au serveur de (" + socket.getPort() + ")");
+						// ConnectÃ©!
+						System.out.println("ConnectÃ© au serveur de (" + socket.getPort() + ")");
 						
 						
 						// Envois au serveur
@@ -84,7 +84,7 @@ public class Application {
 						line = clavier.readLine();
 						sOut.println(line);
 						
-						// Réponse du serveur
+						// RÃ©ponse du serveur
 						line = sIn.readLine();
 						// Affiche la reponse du serveur
 						System.out.println(line);
@@ -93,7 +93,7 @@ public class Application {
 						line = clavier.readLine();
 						sOut.println(line);
 
-						// Réponse du serveur
+						// RÃ©ponse du serveur
 						line = sIn.readLine();
 						
 						// Affiche la reponse du serveur
@@ -104,7 +104,7 @@ public class Application {
 					}
 				}
 				else{
-					System.out.println("Désolé je n'ai pas compris votre demande.\nVeuillez entrer 1 ou 2\n");
+					System.out.println("DÃ©solÃ© je n'ai pas compris votre demande.\nVeuillez entrer 1 ou 2\n");
 				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block

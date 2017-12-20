@@ -27,7 +27,7 @@ public class Livre implements Document {
 
 	@Override
 	public synchronized void reserver(Abonne ab) throws PasLibreException {
-		// TODO Auto-gener0.ated method stub
+		// TODO Auto-generated method stub
 		
 	}
 
@@ -37,9 +37,12 @@ public class Livre implements Document {
 			if(this.reserve == false){
 				this.emprunte = true;
 			}else{
-				throw new PasLibreException("ca marche pas");
+				throw new PasLibreException("Erreur : Le livre selectionné est reservé");
 			}
+		}else {
+			throw new PasLibreException("Erreur : Le livre selectionné est déja emprunté");
 		}
+		
 	}
 
 	@Override
