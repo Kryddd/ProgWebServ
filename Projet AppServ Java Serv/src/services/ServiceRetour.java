@@ -14,4 +14,8 @@ public class ServiceRetour implements Runnable {
 		
 	}
 
+	public void lancer() {
+		new Thread(this).start();
+	}
+
 }
