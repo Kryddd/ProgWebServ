@@ -6,13 +6,15 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import bibliotheque.Bibliotheque;
+
 public class ServiceEmprunt implements Runnable{
 	private static int cptRes = 0;
 	private int numero;
-	
+	private Bibliotheque biblio;
 	private Socket client;
 	
-	public ServiceEmprunt(Socket socket) {
+	public ServiceEmprunt(Socket socket,Bibliotheque biblio) {
 		this.client = socket;
 		this.numero = cptRes++;
 	}

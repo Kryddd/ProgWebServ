@@ -3,13 +3,15 @@ package serveurs;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import bibliotheque.Bibliotheque;
 import services.ServiceReservation;
 import services.ServiceRetour;
 
 public class ServeurRetour implements Runnable {
 	private ServerSocket listenSocket;
-
-	public ServeurRetour(int port) throws IOException {
+	private Bibliotheque biblio;
+	
+	public ServeurRetour(int port, Bibliotheque biblio) throws IOException {
 		listenSocket = new ServerSocket(port);
 	}
 	
@@ -17,7 +19,7 @@ public class ServeurRetour implements Runnable {
 	public void run() {
 		try {
 			while(true) {
-				new ServiceRetour(listenSocket.accept()).lancer();
+				new ServiceRetour(listenSocket.accept(), biblio).lancer();
 			}
 		}
 		catch (IOException e) {

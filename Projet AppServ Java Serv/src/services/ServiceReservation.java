@@ -6,14 +6,16 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import bibliotheque.Bibliotheque;
+
 public class ServiceReservation implements Runnable {
 
 	private static int cptRes = 0;
 	private int numero;
-	
+	private Bibliotheque biblio;
 	private Socket client;
 	
-	public ServiceReservation(Socket socket) {
+	public ServiceReservation(Socket socket, Bibliotheque biblio) {
 		this.client = socket;
 		this.numero = cptRes++;
 	}

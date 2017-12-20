@@ -3,13 +3,15 @@ package serveurs;
 import java.io.IOException;
 import java.net.ServerSocket;
 
+import bibliotheque.Bibliotheque;
 import services.ServiceEmprunt;
 
 
 public class ServeurEmprunt implements Runnable{
-private ServerSocket listenSocket;
-	
-	public ServeurEmprunt(int port) throws IOException {
+	private ServerSocket listenSocket;
+	private Bibliotheque biblio;
+
+	public ServeurEmprunt(int port, Bibliotheque biblio) throws IOException {
 		listenSocket = new ServerSocket(port);
 	}
 
@@ -17,7 +19,7 @@ private ServerSocket listenSocket;
 	public void run() {
 		try {
 			while(true) {
-				new ServiceEmprunt(listenSocket.accept()).lancer();
+				new ServiceEmprunt(listenSocket.accept(), biblio).lancer();
 			}
 		}
 		catch (IOException e) {
