@@ -6,6 +6,14 @@ public class Abonne {
 	private String prenom;
 	private String nom;
 	
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
 	public Abonne(String prenom, String nom) {
 		this.numero = cptAbonne++;
 		this.prenom = prenom;

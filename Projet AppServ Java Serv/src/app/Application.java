@@ -56,8 +56,11 @@ public class Application {
 		
 		try {
 			new Thread(new ServeurReservation(2500, Biblio)).start();
+			System.out.println("Serveur reservation demarré sur le port 2500");
 			new Thread(new ServeurEmprunt(2600, Biblio)).start();
+			System.out.println("Serveur reservation demarré sur le port 2600");
 			new Thread(new ServeurRetour(2700, Biblio)).start();
+			System.out.println("Serveur reservation demarré sur le port 2700");
 		} catch (IOException e) {
 			System.err.println("Probleme lors de la creation d'un serveur :" + e);
 		}

@@ -20,6 +20,7 @@ public class ServiceEmprunt implements Runnable{
 	public ServiceEmprunt(Socket socket,Bibliotheque biblio) {
 		this.client = socket;
 		this.numero = cptRes++;
+		this.biblio = biblio;
 	}
 	
 	@Override
@@ -28,7 +29,7 @@ public class ServiceEmprunt implements Runnable{
 		Boolean numtrouve = false;
 		Boolean abotrouve = false;
 		Boolean pasLibre = false;
-		System.out.println("Connexion reservation " + this.numero + " demarrée");
+		System.out.println("Connexion emprunt " + this.numero + " demarrée");
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
 			PrintWriter out = new PrintWriter(client.getOutputStream(), true);
@@ -47,9 +48,9 @@ public class ServiceEmprunt implements Runnable{
 							} catch (PasLibreException e) {
 								pasLibre = true;
 							}
-						} 						
+						}
 					}
-				}	
+				}
 			} 
 			
 			if (numtrouve == false || abotrouve == false){
@@ -61,6 +62,7 @@ public class ServiceEmprunt implements Runnable{
 				}
 				out.println(err);
 			}else{
+				
 				if(pasLibre = true){
 					out.println("Livre deja reservé par un abonné !");
 				}else{
@@ -71,8 +73,13 @@ public class ServiceEmprunt implements Runnable{
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
-		System.out.println("Connexion reservation " + this.numero + " terminée");
+		try {
+			client.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Connexion emprunt " + this.numero + " terminée");
 
 		
 		

@@ -37,10 +37,9 @@ public class Livre implements Document {
 			if(this.reserve == false){
 				this.emprunte = true;
 			}else{
-				
+				throw new PasLibreException("ca marche pas");
 			}
 		}
-		
 	}
 
 	@Override

@@ -13,6 +13,7 @@ public class ServeurEmprunt implements Runnable{
 
 	public ServeurEmprunt(int port, Bibliotheque biblio) throws IOException {
 		listenSocket = new ServerSocket(port);
+		this.biblio = biblio;
 	}
 
 	@Override
