@@ -6,13 +6,15 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import bibliotheque.Bibliotheque;
+
 public class ServiceRetour implements Runnable {
 	private static int cptRes = 0;
 	private int numero;
-	
+	private Bibliotheque biblio;
 	private Socket client;
 	
-	public ServiceRetour(Socket sock) {
+	public ServiceRetour(Socket sock, Bibliotheque biblio) {
 		this.client = sock;
 		this.numero = cptRes++;
 	}
