@@ -27,6 +27,7 @@ public class ServiceEmprunt implements Runnable{
 		String err = "";
 		Boolean numtrouve = false;
 		Boolean abotrouve = false;
+		Boolean pasLibre = false;
 		System.out.println("Connexion reservation " + this.numero + " demarrée");
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -44,7 +45,7 @@ public class ServiceEmprunt implements Runnable{
 							try {
 								doc.emprunter(abo);
 							} catch (PasLibreException e) {
-								
+								pasLibre = true;
 							}
 						} 						
 					}
@@ -60,11 +61,13 @@ public class ServiceEmprunt implements Runnable{
 				}
 				out.println(err);
 			}else{
-				out.println("Livre emprunté avec succes !");
+				if(pasLibre = true){
+					out.println("Livre deja reservé par un abonné !");
+				}else{
+					out.println("Livre emprunté avec succes !");
+				}
 			}
-			
-			
-			
+						
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
