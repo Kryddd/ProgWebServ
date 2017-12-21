@@ -24,7 +24,7 @@ public class ServiceRetour implements Runnable {
 	@Override
 	public void run() {
 		Boolean numtrouve = false;
-		System.out.println("Connexion retour " + this.numero + " demarr�e");
+		System.out.println("Connexion retour " + this.numero + " demarrée");
 		
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -50,7 +50,7 @@ public class ServiceRetour implements Runnable {
 			
 		}
 		
-		System.out.println("Connexion reservation " + this.numero + "termin�e");
+		System.out.println("Connexion retour " + this.numero + " terminée");
 		try {
 			client.close();
 		}
