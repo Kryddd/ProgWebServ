@@ -30,9 +30,11 @@ public class Livre implements Document {
 		if(this.emprunte == false) {
 			if(this.reserve == false) {
 				this.reserve = true;
+			}else {
+				throw new PasLibreException("Erreur : Le livre selectionné est déja reservé");
 			}
 		}else {
-			throw new PasLibreException("Erreur : Le livre selectionné est déja emprunté");
+			throw new PasLibreException("Erreur : Le livre selectionné est emprunté");
 		}
 		
 	}
