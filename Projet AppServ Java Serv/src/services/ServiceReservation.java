@@ -22,7 +22,7 @@ public class ServiceReservation implements Runnable {
 	
 	@Override
 	public void run() {
-		System.out.println("Connexion reservation " + this.numero + " demarrée");
+		System.out.println("Connexion reservation " + this.numero + " demarrÃ©e");
 		
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -35,7 +35,7 @@ public class ServiceReservation implements Runnable {
 			
 		}
 		
-		System.out.println("Connexion reservation " + this.numero + "terminée");
+		System.out.println("Connexion reservation " + this.numero + " terminÃ©e");
 		try {
 			client.close();
 		}

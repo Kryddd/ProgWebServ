@@ -31,9 +31,11 @@ public class Livre implements Document {
 			if(this.reserve == false) {
 				this.reserve = true;
 			}else {
+				
 				throw new PasLibreException("Erreur : Le livre selectionné est déja reservé");
 			}
 		}else {
+			
 			throw new PasLibreException("Erreur : Le livre selectionné est emprunté");
 		}
 		
@@ -45,9 +47,17 @@ public class Livre implements Document {
 			if(this.reserve == false){
 				this.emprunte = true;
 			}else {
-				throw new PasLibreException("Erreur : Le livre selectionné est reservé");
+				for (Integer i : ab.getReservation()) {
+					if (i == this.numero()) {
+						this.emprunte = true;
+						ab.delReservation(this.numero());
+						ab.addEmprunt(this.numero());
+					}else {
+						throw new PasLibreException("Erreur : Le livre selectionné est reservé");
+					}
+				}
 			}
-		}else {
+		}else {			
 			throw new PasLibreException("Erreur : Le livre selectionné est déja emprunté");
 		}
 		

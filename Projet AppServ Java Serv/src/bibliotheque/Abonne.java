@@ -32,6 +32,10 @@ public class Abonne {
 		return this.numero;
 	}
 	
+	public List<Integer> getReservation() {
+		return reservation;
+	}
+	
 	public int addReservation(int numeroLivre) {
 		if (this.reservation.size() < NB_MAX_RES_EMPR) {
 			this.reservation.add(numeroLivre);
@@ -49,6 +53,10 @@ public class Abonne {
 		}
 	}
 	
+	public List<Integer> getEmprunt() {
+		return emprunt;
+	}
+
 	public int addEmprunt(int numeroLivre) {
 		if (this.emprunt.size() < NB_MAX_RES_EMPR) {
 			this.emprunt.add(numeroLivre);
@@ -62,7 +70,7 @@ public class Abonne {
 		for (int i = 0; i < this.emprunt.size(); i++) {
 			if (numeroLivre == this.emprunt.get(i)) {
 				this.emprunt.remove(i);
-			}
+			}			
 		}
 	}
 }
