@@ -27,6 +27,11 @@ public class Bibliotheque {
 	public List<Abonne> getAbonnes() {
 		return abonnes;
 	}
+
+	@Override
+	public String toString() {
+		return "La bibliothèque contient " + this.abonnes.size() + " abonnés et " + this.docs.size() + " documents.";
+	}
 	
 	
 }
