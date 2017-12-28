@@ -11,6 +11,7 @@ public class Livre implements Document {
 	private boolean emprunte;
 	private String titre;
 	private String auteur;
+	private Abonne aboEmprunt;
 	
 	public Livre(String titre, String auteur) {
 		this.numero = cptLivre++;
@@ -30,6 +31,7 @@ public class Livre implements Document {
 		if(this.emprunte == false) {
 			if(this.reserve == false) {
 				this.reserve = true;
+				ab.addReservation(this.numero());
 			}else {
 				
 				throw new PasLibreException("Erreur : Le livre selectionné est déja reservé");
@@ -49,11 +51,13 @@ public class Livre implements Document {
 			if(this.reserve == false){
 				this.emprunte = true;
 				ab.addEmprunt(this.numero());
+				this.aboEmprunt = ab;
 			}else {
 				for (Integer i : ab.getReservation()) {
 					if (i == this.numero()) {
 						this.emprunte = true;
 						this.reserve = false;
+						this.aboEmprunt = ab;
 						ab.delReservation(this.numero());
 						ab.addEmprunt(this.numero());
 						livreTrouve = true;
@@ -71,6 +75,8 @@ public class Livre implements Document {
 	@Override
 	public synchronized void retour() {
 		this.emprunte = false;
+		this.aboEmprunt.delEmprunt(this.numero());
+		this.aboEmprunt = null;
 		this.reserve = false;
 	}
 	
