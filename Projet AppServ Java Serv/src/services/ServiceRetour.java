@@ -9,31 +9,37 @@ import java.net.Socket;
 import bibliotheque.Bibliotheque;
 import bibliotheque.Document;
 
-public class ServiceRetour implements Runnable {
-	private static int cptRes = 0;
-	private int numero;
-	private Bibliotheque biblio;
-	private Socket client;
+/**
+ * Impl�mentation concr�te de la classe Service pour les retours de documents
+ * @author Jacques COUDERC, Arthur CAYET, Antoine PAVY
+ * @version 1.0
+ * @see Service.java
+ */
+public class ServiceRetour extends Service {
+	private static int cptRet = 0; // Compteur du nombre de services retour
 	
+	/**
+	 * Constructeur du service retour
+	 * @param sock
+	 * @param biblio
+	 */
 	public ServiceRetour(Socket sock, Bibliotheque biblio) {
-		this.client = sock;
-		this.numero = cptRes++;
-		this.biblio = biblio;
+		super(sock, biblio, cptRet++);
 	}
 
 	@Override
 	public void run() {
 		Boolean numtrouve = false;
-		System.out.println("Connexion retour " + this.numero + " demarrée");
+		System.out.println("Connexion retour " + getNumero() + " demarrée");
 		
 		try {
-			BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
-			PrintWriter out = new PrintWriter(client.getOutputStream(), true);
+			BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
+			PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
 			
 			int numLivre = Integer.parseInt(in.readLine());
 			//int numAbonne = Integer.parseInt(in.readLine());
 			
-			for (Document doc : biblio.getDocs()) {
+			for (Document doc : getBiblio().getDocs()) {
 				if(doc.numero() == numLivre){
 					numtrouve = true;
 					doc.retour();
@@ -50,9 +56,9 @@ public class ServiceRetour implements Runnable {
 			
 		}
 		
-		System.out.println("Connexion retour " + this.numero + " terminée");
+		System.out.println("Connexion retour " + getNumero() + " terminée");
 		try {
-			client.close();
+			super.getSocket().close();
 		}
 		catch (IOException exc) {
 			
@@ -60,11 +66,4 @@ public class ServiceRetour implements Runnable {
 		
 	}
 
-	public void lancer() {
-		new Thread(this).start();
-	}
-
-	protected void finalize() throws IOException {
-		this.client.close();
-	}
 }
