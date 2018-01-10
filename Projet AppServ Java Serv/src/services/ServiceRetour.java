@@ -30,7 +30,7 @@ public class ServiceRetour extends Service {
 	@Override
 	public void run() {
 		Boolean numtrouve = false;
-		System.out.println("Connexion retour " + getNumero() + " demarrÃ©e");
+		System.out.println("Connexion retour " + getNumero() + " demarrée");
 		
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
@@ -46,22 +46,22 @@ public class ServiceRetour extends Service {
 				}
 			}
 			if (numtrouve == false){
-				out.println("NumÃ©ro livre inconnu.");
+				out.println("Numéro livre inconnu.");
 			}else {
-				out.println("Livre retournÃ© avec succÃ©s !");
+				out.println("Livre retourné avec succés !");
 			}
 			
 		}
 		catch(IOException e) {
-			
+			e.printStackTrace();
 		}
 		
-		System.out.println("Connexion retour " + getNumero() + " terminÃ©e");
+		System.out.println("Connexion retour " + getNumero() + " terminée");
 		try {
 			super.getSocket().close();
 		}
-		catch (IOException exc) {
-			
+		catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 	}

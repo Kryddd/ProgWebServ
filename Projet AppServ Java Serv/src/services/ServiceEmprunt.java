@@ -34,8 +34,7 @@ public class ServiceEmprunt extends Service{
 		String err = "";
 		Boolean numtrouve = false;
 		Boolean abotrouve = false;
-		Boolean pasLibre = false;
-		System.out.println("Connexion emprunt " + getNumero() + " demarr√©e");
+		System.out.println("Connexion emprunt " + getNumero() + " demarrÈe");
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
 			PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
@@ -52,38 +51,29 @@ public class ServiceEmprunt extends Service{
 							try {
 								doc.emprunter(abo);
 							} catch (PasLibreException e) {
-								pasLibre = true;
+								err += e.getMessage();
+
 							}
 						}
 					}
 				}
 			} 
 			
-			if (numtrouve == false || abotrouve == false){
-				if (numtrouve == false){
-					err +="Num√©ro livre inconnu. ";
-				}
-				if (abotrouve == false){
-					err+="Num√©ro abonn√© inconnu.";
-				}
-				out.println(err);
-			}else{
-				if(pasLibre == true){
-					out.println("Livre deja reserv√© par un abonn√© !");
-				}else{
-					out.println("Livre emprunt√© avec succes !");
-				}
+			if (numtrouve == false) {
+				err +="NumÈro livre inconnu. ";
 			}
-						
+			if (abotrouve == false) {
+				err+="NumÈro abonnÈ inconnu.";
+			}
+			out.println(err);			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		try {
 			super.getSocket().close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Connexion emprunt " + getNumero() + " termin√©e");
+		System.out.println("Connexion emprunt " + getNumero() + " terminÈe");
 	}
 }

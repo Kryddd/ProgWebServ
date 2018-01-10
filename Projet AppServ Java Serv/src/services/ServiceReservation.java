@@ -6,7 +6,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import bibliotheque.Abonne;
 import bibliotheque.Bibliotheque;
+import bibliotheque.Document;
+import bibliotheque.PasLibreException;
 
 /**
  * Implémentation concrète de la classe Service pour les reservations de documents
@@ -29,25 +32,49 @@ public class ServiceReservation extends Service {
 	
 	@Override
 	public void run() {
-		System.out.println("Connexion reservation " + getNumero() + " demarrÃ©e");
-		
+		System.out.println("Connexion reservation " + getNumero() + " demarrée");
+		String err = "";
+		Boolean numtrouve = false;
+		Boolean abotrouve = false;
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
 			PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
 			
-			String numLivre = in.readLine();
-			String numAbonne = in.readLine();
+			int numDocument = Integer.parseInt(in.readLine());
+			int numAbonne = Integer.parseInt(in.readLine());
+			
+			for (Document doc : getBiblio().getDocs()) {
+				if(doc.numero() == numDocument){
+					numtrouve = true;
+					for (Abonne abo : getBiblio().getAbonnes()){
+						if(abo.numero() == numAbonne){
+							abotrouve = true;
+							try {
+								doc.reserver(abo);
+							} catch (PasLibreException e) {
+								err += e.getMessage();
+							}
+						}
+					}
+				}
+			}
+			if (numtrouve == false) {
+				err +="Numéro livre inconnu. ";
+			}
+			if (abotrouve == false) {
+				err+="Numéro abonné inconnu.";
+			}
+			out.println(err);
 		}
 		catch(IOException e) {
-			
+			e.printStackTrace();	
 		}
-		
-		System.out.println("Connexion reservation " + getNumero() + " terminÃ©e");
+		System.out.println("Connexion reservation " + getNumero() + " terminée");
 		try {
 			super.getSocket().close();
 		}
-		catch (IOException exc) {
-			
+		catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
