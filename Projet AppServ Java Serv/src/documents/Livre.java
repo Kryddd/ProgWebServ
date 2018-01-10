@@ -7,16 +7,15 @@ import bibliotheque.PasLibreException;
 public class Livre implements Document {
 	private static int cptLivre = 0;
 	private int numero;
-	private boolean reserve;
-	private boolean emprunte;
 	private String titre;
 	private String auteur;
 	private Abonne aboEmprunt;
+	private Abonne aboReserve;
 	
 	public Livre(String titre, String auteur) {
 		this.numero = cptLivre++;
-		this.reserve = false;
-		this.emprunte = false;
+		this.aboEmprunt = null;
+		this.aboReserve = null;
 		this.titre = titre;
 		this.auteur = auteur;
 	}
@@ -28,44 +27,26 @@ public class Livre implements Document {
 
 	@Override
 	public synchronized void reserver(Abonne ab) throws PasLibreException {
-		if(this.emprunte == false) {
-			if(this.reserve == false) {
-				this.reserve = true;
-				ab.addReservation(this.numero());
+		if(this.aboEmprunt == null) {
+			if(this.aboReserve == null) {
+				this.aboReserve = ab;
 			}else {
-				
 				throw new PasLibreException("Erreur : Le livre selectionné est déja reservé");
 			}
 		}else {
-			
 			throw new PasLibreException("Erreur : Le livre selectionné est emprunté");
 		}
 		
 	}
 
 	@Override
-	public synchronized void emprunter(Abonne ab) throws PasLibreException {
-		boolean livreTrouve = false;
-		
-		if(this.emprunte == false){
-			if(this.reserve == false){
-				this.emprunte = true;
-				ab.addEmprunt(this.numero());
+	public synchronized void emprunter(Abonne ab) throws PasLibreException {		
+		if(this.aboEmprunt == null){
+			if(this.aboReserve == null || ab == this.aboReserve){
 				this.aboEmprunt = ab;
+				this.aboReserve = null;
 			}else {
-				for (Integer i : ab.getReservation()) {
-					if (i == this.numero()) {
-						this.emprunte = true;
-						this.reserve = false;
-						this.aboEmprunt = ab;
-						ab.delReservation(this.numero());
-						ab.addEmprunt(this.numero());
-						livreTrouve = true;
-					}
-				}
-				if (livreTrouve == false) {
-					throw new PasLibreException("Erreur : Le livre selectionné est reservé par quelqu'un d'autre");
-				}
+				throw new PasLibreException("Erreur : Le livre selectionné est reservé par quelqu'un d'autre");
 			}
 		}else {			
 			throw new PasLibreException("Erreur : Le livre selectionné est déja emprunté");
@@ -74,10 +55,7 @@ public class Livre implements Document {
 
 	@Override
 	public synchronized void retour() {
-		this.emprunte = false;
-		this.aboEmprunt.delEmprunt(this.numero());
 		this.aboEmprunt = null;
-		this.reserve = false;
 	}
 	
 	public String getTitre() {

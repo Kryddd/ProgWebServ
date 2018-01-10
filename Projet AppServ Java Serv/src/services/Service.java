@@ -48,7 +48,7 @@ public abstract class Service implements Runnable {
 	 * @return socket client
 	 */
 	public Socket getSocket() {
-		return this.getSocket();
+		return this.client;
 	}
 	
 	public abstract void run();
