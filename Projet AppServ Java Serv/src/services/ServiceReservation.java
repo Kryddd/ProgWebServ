@@ -64,7 +64,13 @@ public class ServiceReservation extends Service {
 			if (abotrouve == false) {
 				err+="Numéro abonné inconnu.";
 			}
-			out.println(err);
+			
+			if(numtrouve && abotrouve) {
+				out.println("Reservation du document numero " + numDocument + " effectuée");
+			}
+			else {
+				out.println(err);
+			}
 		}
 		catch(IOException e) {
 			e.printStackTrace();	

@@ -39,11 +39,11 @@ public class ServiceEmprunt extends Service{
 			BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
 			PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
 			
-			int numLivre = Integer.parseInt(in.readLine());
+			int numDocument = Integer.parseInt(in.readLine());
 			int numAbonne = Integer.parseInt(in.readLine());
 		
 			for (Document doc : getBiblio().getDocs()) {
-				if(doc.numero() == numLivre){
+				if(doc.numero() == numDocument){
 					numtrouve = true;
 					for (Abonne abo : getBiblio().getAbonnes()){
 						if(abo.numero() == numAbonne){
@@ -65,7 +65,12 @@ public class ServiceEmprunt extends Service{
 			if (abotrouve == false) {
 				err+="Numéro abonné inconnu.";
 			}
-			out.println(err);			
+			if(numtrouve && abotrouve) {
+				out.println("Emprunt du document numero " + numDocument + " effectuée");
+			}
+			else {
+				out.println(err);
+			}		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

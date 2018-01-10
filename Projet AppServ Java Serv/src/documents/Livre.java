@@ -1,8 +1,11 @@
 package documents;
 
+import java.util.Timer;
+
 import bibliotheque.Abonne;
 import bibliotheque.Document;
 import bibliotheque.PasLibreException;
+import timers.TimerTaskReservation;
 
 public class Livre implements Document {
 	private static int cptLivre = 0;
@@ -30,6 +33,7 @@ public class Livre implements Document {
 		if(this.aboEmprunt == null) {
 			if(this.aboReserve == null) {
 				this.aboReserve = ab;
+				setTimerReservation();
 			}else {
 				throw new PasLibreException("Erreur : Le livre selectionné est déja reservé");
 			}
@@ -64,5 +68,11 @@ public class Livre implements Document {
 
 	public String getAuteur() {
 		return auteur;
+	}
+	
+	private void setTimerReservation(){
+		Timer time = new Timer("timerReservation" + this.numero());
+		long delay = 2000;
+		time.schedule(new TimerTaskReservation(this, time), delay);
 	}
 }

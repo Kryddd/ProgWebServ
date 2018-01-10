@@ -10,7 +10,7 @@ public class Application {
 
 	public static void main(String[] args) {
 		Bibliotheque biblio = new Bibliotheque();
-		// Ajout d'abonnÃ©s
+		// Ajout d'abonnés
 		biblio.addAbonne(new Abonne("Antoine","PAVY"));
 		biblio.addAbonne(new Abonne("Arthur","CAYET"));
 		biblio.addAbonne(new Abonne("Jacques","COUDERC"));
@@ -28,26 +28,26 @@ public class Application {
 		biblio.addDocument(new Livre("La Passe-Mirroir Livre 1 : Les Fiancï¿½s de l'hiver","Christelle DABOS"));
 		biblio.addDocument(new Livre("La Passe-Mirroir Livre 2 : Les Disparus du Clairdelune","Christelle DABOS"));
 		biblio.addDocument(new Livre("La Passe-Mirroir Livre 3 : La Mï¿½moire de Babel","Christelle DABOS"));
-		biblio.addDocument(new Livre("L'Ã©preuve Livre 1 : Le Labyrinthe","James DASHNER"));
-		biblio.addDocument(new Livre("L'Ã©preuve Livre 2 : La Terre BrÃ»lÃ©e","James DASHNER"));
-		biblio.addDocument(new Livre("L'Ã©preuve Livre 3 : Le RemÃ¨de Mortel","James DASHNER"));
+		biblio.addDocument(new Livre("L'épreuve Livre 1 : Le Labyrinthe","James DASHNER"));
+		biblio.addDocument(new Livre("L'épreuve Livre 2 : La Terre Brûlée","James DASHNER"));
+		biblio.addDocument(new Livre("L'épreuve Livre 3 : Le Remède Mortel","James DASHNER"));
 		biblio.addDocument(new Livre("Le Guide Non Officiel POKÃ‰MON GO","Ivy ST-IVE"));
-		biblio.addDocument(new Livre("PokÃ©mon La Grande Aventure 1","Hidenori KUSAKA & MATO"));
-		biblio.addDocument(new Livre("PokÃ©mon La Grande Aventure 2","Hidenori KUSAKA & MATO"));
-		biblio.addDocument(new Livre("PokÃ©mon La Grande Aventure 3","Hidenori KUSAKA & MATO"));
-		biblio.addDocument(new Livre("Harry Potter Ã  l'Ã©cole des sorciers","J.K. ROWLING"));
+		biblio.addDocument(new Livre("Pokémon La Grande Aventure 1","Hidenori KUSAKA & MATO"));
+		biblio.addDocument(new Livre("Pokémon La Grande Aventure 2","Hidenori KUSAKA & MATO"));
+		biblio.addDocument(new Livre("Pokémon La Grande Aventure 3","Hidenori KUSAKA & MATO"));
+		biblio.addDocument(new Livre("Harry Potter Ã  l'école des sorciers","J.K. ROWLING"));
 		biblio.addDocument(new Livre("Harry Potter et la Chambre des secrets","J.K. ROWLING"));
 		biblio.addDocument(new Livre("Harry Potter et le Prisonier d'Azkaban","J.K. ROWLING"));
 		biblio.addDocument(new Livre("Harry Potter et la coupe de feu","J.K. ROWLING"));
-		biblio.addDocument(new Livre("Harry Potter et l'Ordre du phÃ©nix","J.K. ROWLING"));
-		biblio.addDocument(new Livre("Harry Potter et le Prince de sang-mÃ©lÃ©","J.K. ROWLING"));
+		biblio.addDocument(new Livre("Harry Potter et l'Ordre du phénix","J.K. ROWLING"));
+		biblio.addDocument(new Livre("Harry Potter et le Prince de sang-mélé","J.K. ROWLING"));
 		biblio.addDocument(new Livre("Harry Potter et les Reliques de la Mort","J.K. ROWLING"));
 		biblio.addDocument(new Livre("Harry Potter et l'Enfant Maudit","J.K. ROWLING"));
 		biblio.addDocument(new Livre("Les Animaux Fantastiques par Norbert Dragonneau","J.K. ROWLING"));
 		biblio.addDocument(new Livre("La Politique pour les Nuls","Philipe REINHARD"));
 		biblio.addDocument(new Livre("L'Humour pour les Nuls","Gordon ZOLA"));
 		biblio.addDocument(new Livre("Alice au pays des merveilles","Walt DISNEY"));
-		biblio.addDocument(new Livre("Comment tuer son pÃ¨re","OEdipe"));
+		biblio.addDocument(new Livre("Comment tuer son père","OEdipe"));
 		biblio.addDocument(new Livre("La Force pour les Nuls","Maitre YODA"));
 		biblio.addDocument(new Livre("Le Guide de la Survie ExtrÃªme","Bear GRYLLS"));
 		biblio.addDocument(new Livre("Belle La Coccinelle","Antoon KRINGS"));
@@ -56,21 +56,21 @@ public class Application {
 		
 		try {
 			new Thread(new ServeurReservation(2500, biblio)).start();
-			System.out.println("Serveur reservation demarrÃ© sur le port 2500");
+			System.out.println("Serveur reservation demarré sur le port 2500");
 		} catch (IOException e) {
 			System.err.println("Probleme lors de la creation d'un serveur : " + e);
 		}
 		
 		try {
 			new Thread(new ServeurEmprunt(2600, biblio)).start();
-			System.out.println("Serveur reservation demarrÃ© sur le port 2600");
+			System.out.println("Serveur reservation demarré sur le port 2600");
 		} catch (IOException e) {
 			System.err.println("Probleme lors de la creation d'un serveur : " + e);
 		}
 		
 		try {
 			new Thread(new ServeurRetour(2700, biblio)).start();
-			System.out.println("Serveur reservation demarrÃ© sur le port 2700");
+			System.out.println("Serveur reservation demarré sur le port 2700");
 		} catch (IOException e) {
 			System.err.println("Probleme lors de la creation d'un serveur : " + e);
 		}
