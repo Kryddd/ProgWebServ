@@ -4,45 +4,38 @@ import java.io.IOException;
 import java.net.ServerSocket;
 
 import bibliotheque.Bibliotheque;
+import services.ServiceEmprunt;
+import services.ServiceFactory;
 
-/**
- * Classe abstraite représentant un serveur sur lequel les clients se connectent
- * @author Jacques COUDERC, Arthur CAYET, Antoine PAVY
- * @version 1.0
- */
-public abstract class Serveur implements Runnable {
-	private ServerSocket listenSocket; // Socket du serveur
-	private Bibliotheque biblio; // bibliothèque que le serveur utilise pour effectuer les requetes
-	
-	/**
-	 * Constructeur du Serveur
-	 * @param port Port sur lequel le serveur sera lancé
-	 * @param biblio Bibliothèque utilisée pour les requêtes
-	 * @throws IOException
-	 */
+
+public class Serveur implements Runnable{
+	private ServerSocket listenSocket;
+	private Bibliotheque biblio;
+	private int port;
+
 	public Serveur(int port, Bibliotheque biblio) throws IOException {
 		listenSocket = new ServerSocket(port);
 		this.biblio = biblio;
+		this.port = port;
 	}
-	
-	
-	/**
-	 * Getter du socket serveur
-	 * @return ServerSocket
-	 */
-	public ServerSocket getListenSocket() {
-		return listenSocket;
+
+	@Override
+	public void run() {
+		try {
+			while(true) {
+				ServiceFactory.createService(port, listenSocket, biblio);
+			}
+		}
+		catch (IOException e) {
+			// Fermeture du socket
+			try {
+				this.listenSocket.close();
+			}
+			catch(IOException exc) {
+				System.err.println("Probleme sur le port d'ecoute : " + exc);
+			}
+		}
 	}
-	
-	/**
-	 * Getter de bibliothèque
-	 * @return bibliothèque
-	 */
-	public Bibliotheque getBiblio() {
-		return biblio;
-	}
-	
-	public abstract void run();
 	
 	protected void finalize() {
 		try {

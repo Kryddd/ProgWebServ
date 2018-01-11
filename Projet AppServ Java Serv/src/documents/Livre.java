@@ -73,6 +73,6 @@ public class Livre implements Document {
 	private void setTimerReservation(){
 		Timer time = new Timer("timerReservation" + this.numero());
 		long delay = 2000;
-		time.schedule(new TimerTaskReservation(this, time), delay);
+		time.schedule(new TimerTaskReservation(this), delay);
 	}
 }

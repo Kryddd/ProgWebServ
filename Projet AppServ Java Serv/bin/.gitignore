@@ -1,7 +1,5 @@
-/app/
-/bibliotheque/
-/documents/
 /serveurs/
-/services/
-/TimerTaskReservation.class
+/documents/
 /timers/
+/app/
+/services/

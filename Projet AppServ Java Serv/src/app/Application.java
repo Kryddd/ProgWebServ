@@ -55,22 +55,22 @@ public class Application {
 		System.out.println(biblio.toString());
 		
 		try {
-			new Thread(new ServeurReservation(2500, biblio)).start();
+			new Thread(new Serveur(2500, biblio)).start();
 			System.out.println("Serveur reservation demarré sur le port 2500");
 		} catch (IOException e) {
 			System.err.println("Probleme lors de la creation d'un serveur : " + e);
 		}
 		
 		try {
-			new Thread(new ServeurEmprunt(2600, biblio)).start();
-			System.out.println("Serveur reservation demarré sur le port 2600");
+			new Thread(new Serveur(2600, biblio)).start();
+			System.out.println("Serveur emprunt demarré sur le port 2600");
 		} catch (IOException e) {
 			System.err.println("Probleme lors de la creation d'un serveur : " + e);
 		}
 		
 		try {
-			new Thread(new ServeurRetour(2700, biblio)).start();
-			System.out.println("Serveur reservation demarré sur le port 2700");
+			new Thread(new Serveur(2700, biblio)).start();
+			System.out.println("Serveur retour demarré sur le port 2700");
 		} catch (IOException e) {
 			System.err.println("Probleme lors de la creation d'un serveur : " + e);
 		}
