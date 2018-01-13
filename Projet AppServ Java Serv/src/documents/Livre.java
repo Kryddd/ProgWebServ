@@ -5,7 +5,7 @@ import java.util.Timer;
 import bibliotheque.Abonne;
 import bibliotheque.Document;
 import bibliotheque.PasLibreException;
-import timers.TimerTaskReservation;
+import timers.TimerTaskReservLivre;
 
 public class Livre implements Document {
 	private static int cptLivre = 0;
@@ -62,6 +62,10 @@ public class Livre implements Document {
 		this.aboEmprunt = null;
 	}
 	
+	public synchronized void supprReservation() {
+		this.aboReserve = null;
+	}
+	
 	public String getTitre() {
 		return titre;
 	}
@@ -73,6 +77,6 @@ public class Livre implements Document {
 	private void setTimerReservation(){
 		Timer time = new Timer("timerReservation" + this.numero());
 		long delay = 2000;
-		time.schedule(new TimerTaskReservation(this), delay);
+		time.schedule(new TimerTaskReservLivre(this), delay);
 	}
 }

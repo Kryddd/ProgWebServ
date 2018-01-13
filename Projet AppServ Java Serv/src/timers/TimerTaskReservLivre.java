@@ -1,18 +1,18 @@
 package timers;
 import java.util.TimerTask;
 
-import bibliotheque.Document;
+import documents.Livre;
 
-public class TimerTaskReservation extends TimerTask{
-	private Document docReserve;
+public class TimerTaskReservLivre extends TimerTask{
+	private Livre docReserve;
 	
-	public TimerTaskReservation(Document doc){
+	public TimerTaskReservLivre(Livre doc){
 		this.docReserve = doc;
 	}
 	
 	@Override
 	public void run() {
-		docReserve.retour();
+		docReserve.supprReservation();
 		System.out.println("reservation n°" + docReserve.numero() + " annulée");
 	}
 	
