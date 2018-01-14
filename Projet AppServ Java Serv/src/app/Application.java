@@ -13,8 +13,8 @@ public class Application {
 		// Ajout d'abonnés
 		biblio.addAbonne(new Abonne("Antoine","PAVY", "antoine.pavy@etu.parisdescartes.fr"));
 		biblio.addAbonne(new Abonne("Arthur","CAYET", "arthur.cayet@etu.parisdescartes.fr"));
-		biblio.addAbonne(new Abonne("Jacques","COUDERC", "jaccouderc@gmail.com"));
-		biblio.addAbonne(new Abonne("Pierre","COUDERC", "pierre.couderc.portable@gmail.com"));
+		biblio.addAbonne(new Abonne("Jacques","COUDERC", "jacques.couderc@etu.parisdescartes.fr"));
+		biblio.addAbonne(new Abonne("Pierre","COUDERC", "pierre.couderc@etu.parisdescartes.fr"));
 		biblio.addAbonne(new Abonne("Jean-François","Brette", "jean-francois.brette@parisdescartes.fr"));
 		
 		// Ajout de livres
