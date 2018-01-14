@@ -5,16 +5,20 @@ import java.util.Timer;
 import bibliotheque.Abonne;
 import bibliotheque.Document;
 import bibliotheque.PasLibreException;
-import timers.TimerTaskReservLivre;
+import documents.timers.TimerTaskEmpruntLivre;
+import documents.timers.TimerTaskReservLivre;
 
 public class Livre implements Document {
 	private static int cptLivre = 0;
-	private static final long reservationDelay = 1000 * 2 * 3600;
+	private static final long reservationDelay = 1000 * 2 * 3600; // 2 heures
+	private static final long empruntDelay = 1000; // 2 semaines
 	private int numero;
 	private String titre;
 	private String auteur;
 	private Abonne aboEmprunt;
 	private Abonne aboReserve;
+	
+	private boolean enRetard;
 	
 	public Livre(String titre, String auteur) {
 		this.numero = cptLivre++;
@@ -22,8 +26,13 @@ public class Livre implements Document {
 		this.aboReserve = null;
 		this.titre = titre;
 		this.auteur = auteur;
+		this.enRetard = false;
 	}
 	
+	public void setEnRetard() {
+		this.enRetard = true;
+	}
+
 	@Override
 	public int numero() {
 		return numero;
@@ -33,13 +42,20 @@ public class Livre implements Document {
 	public synchronized void reserver(Abonne ab) throws PasLibreException {
 		if(this.aboEmprunt == null) {
 			if(this.aboReserve == null) {
-				this.aboReserve = ab;
-				setTimerReservation();
-			}else {
-				throw new PasLibreException("Erreur : Le livre selectionnÃ© est dÃ©ja reservÃ©");
+				if(!ab.estInterdit()) {
+					this.aboReserve = ab;
+					setTimerReservation();
+				}
+				else {
+					throw new PasLibreException("Erreur : Abonné est interdit de bibliotheque");
+				}
 			}
-		}else {
-			throw new PasLibreException("Erreur : Le livre selectionnÃ© est empruntÃ©");
+			else {
+				throw new PasLibreException("Erreur : Le livre selectionné est déja reservé");
+			}
+		}
+		else {
+			throw new PasLibreException("Erreur : Le livre selectionné est emprunté");
 		}
 		
 	}
@@ -47,20 +63,34 @@ public class Livre implements Document {
 	@Override
 	public synchronized void emprunter(Abonne ab) throws PasLibreException {		
 		if(this.aboEmprunt == null){
-			if(this.aboReserve == null || ab == this.aboReserve){
-				this.aboEmprunt = ab;
-				this.aboReserve = null;
-			}else {
-				throw new PasLibreException("Erreur : Le livre selectionnÃ© est reservÃ© par quelqu'un d'autre");
+			if(this.aboReserve == null || ab == this.aboReserve) {
+				if(!ab.estInterdit()) {
+					this.aboEmprunt = ab;
+					this.aboReserve = null;
+					setTimerEmprunt();
+				}
+				else {
+					throw new PasLibreException("Erreur : Abonné interdit de bibliotheque");
+				}
 			}
-		}else {			
-			throw new PasLibreException("Erreur : Le livre selectionnÃ© est dÃ©ja empruntÃ©");
+			else {
+				throw new PasLibreException("Erreur : Le livre selectionné est reservé par quelqu'un d'autre");
+			}
+		}
+		else {			
+			throw new PasLibreException("Erreur : Le livre selectionné est déja emprunté");
 		}
 	}
 
 	@Override
 	public synchronized void retour() {
+		
+		if(enRetard) {
+			aboEmprunt.interdire();
+		}
+		
 		this.aboEmprunt = null;
+		this.enRetard = false;
 	}
 	
 	public synchronized void supprReservation() {
@@ -78,5 +108,10 @@ public class Livre implements Document {
 	private void setTimerReservation(){
 		Timer timerReserv = new Timer("timerReservation" + this.numero());
 		timerReserv.schedule(new TimerTaskReservLivre(this), reservationDelay);
+	}
+	
+	private void setTimerEmprunt() {
+		Timer timerEmprunt = new Timer("timerEmprunt"+this.numero());
+		timerEmprunt.schedule(new TimerTaskEmpruntLivre(this), empruntDelay);
 	}
 }

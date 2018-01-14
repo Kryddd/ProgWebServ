@@ -78,13 +78,7 @@ public class Application {
 							
 							
 						// Connecté!
-						System.out.println("Connecté au serveur de (" + socket.getPort() + ")");
-						
-						// TODO faire la relation livre Emprunter/Abonne
-						// Envois au serveur
-						//System.out.println("Entrez votre numero d'abonne :");
-						//line = clavier.readLine();
-						//sOut.println(line);			
+						System.out.println("Connecté au serveur de retour (" + socket.getPort() + ")");	
 						
 						System.out.println("Entrez le numero du livre a retourner :");
 						line = clavier.readLine();
