@@ -11,7 +11,7 @@ import documents.timers.TimerTaskReservLivre;
 public class Livre implements Document {
 	private static int cptLivre = 0;
 	private static final long reservationDelay = 1000 * 2 * 3600; // 2 heures
-	private static final long empruntDelay = 1000; // 2 semaines
+	private static final long empruntDelay = 10000; // 2 semaines
 	private int numero;
 	private String titre;
 	private String auteur;
@@ -31,6 +31,7 @@ public class Livre implements Document {
 	
 	public void setEnRetard() {
 		this.enRetard = true;
+		aboEmprunt.interdire();
 	}
 
 	@Override
@@ -85,8 +86,9 @@ public class Livre implements Document {
 	@Override
 	public synchronized void retour() {
 		
+		// Commence l'interdiction en cas de retard ou de dégradation
 		if(enRetard) {
-			aboEmprunt.interdire();
+			aboEmprunt.setTimerAbInterdit();
 		}
 		
 		this.aboEmprunt = null;

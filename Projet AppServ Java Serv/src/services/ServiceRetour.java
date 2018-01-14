@@ -51,7 +51,7 @@ public class ServiceRetour extends Service {
 			if (!numtrouve){
 				out.println("Numéro livre inconnu.");
 			}else {
-				out.println("Livre retourné avec succés !");
+				out.println("Livre rendu");
 			}
 			
 		}

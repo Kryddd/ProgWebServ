@@ -31,20 +31,33 @@ public class Abonne {
 		return this.numero;
 	}
 	
+	/**
+	 * Indique si l'utilisateur à le droit d'emprunter
+	 * @return
+	 */
 	public boolean estInterdit() {
 		return interditEmprunt;
 	}
 	
+	/**
+	 * Empeche l'abonné de réserver ou d'emprunter un livre jusqu'à ce qu'il
+	 * ai rendu ses livres en retard et subi la pénalité de 1 mois
+	 */
 	public void interdire() {
 		this.interditEmprunt = true;
-		setTimerAbInterdit();
 	}
 
-	private void setTimerAbInterdit() {
+	/**
+	 * Commence le délai d'interdiction d'emprunt de 1 mois
+	 */
+	public void setTimerAbInterdit() {
 		Timer timerAbInterdit = new Timer("timerReservation" + this.numero());
 		timerAbInterdit.schedule(new TimerTaskAbInterdit(this), interditDelay);
 	}
 
+	/**
+	 * Annule l'interdiction d'emprunter
+	 */
 	public void annuleInterdit() {
 		this.interditEmprunt = false;
 		
