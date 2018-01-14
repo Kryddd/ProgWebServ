@@ -4,6 +4,11 @@ import java.util.Timer;
 
 import bibliotheque.timers.TimerTaskAbInterdit;
 
+/**
+ * Classe représentant l'abonné de la bibliothèque
+ * @author Jacques COUDERC, Arthur CAYET, Arthur CAYET, Antoine PAVY
+ * @version 1.0
+ */
 public class Abonne {
 	private static final long interditDelay = 1000 * 3600 * 24 * 7 * 4; // 1 mois
 	private static int cptAbonne = 0;
@@ -13,6 +18,12 @@ public class Abonne {
 	private String email;
 	private boolean interditEmprunt;
 	
+	/**
+	 * Constructeur de la classe Abonne
+	 * @param prenom Le prénom de l'abonné
+	 * @param nom Le nom de l'abonné
+	 * @param email L'adresse mail de l'abonné
+	 */
 	public Abonne(String prenom, String nom, String email) {
 		this.numero = cptAbonne++;
 		this.prenom = prenom;
@@ -21,18 +32,34 @@ public class Abonne {
 		this.interditEmprunt = false;
 	}
 	
+	/**
+	 * Donne le prénom de l'abonné
+	 * @return Le prénom
+	 */
 	public String getPrenom() {
 		return prenom;
 	}
 
+	/**
+	 * Donne le nom de l'abonné
+	 * @return Le nom
+	 */
 	public String getNom() {
 		return nom;
 	}
 	
+	/**
+	 * Donne l'adresse mail de l'abonné
+	 * @return L'adresse mail
+	 */
 	public String getEmail() {
 		return this.email;
 	}
 	
+	/**
+	 * Donne le numéro de l'abonné
+	 * @return Le numéro
+	 */
 	public int numero() {
 		return this.numero;
 	}

@@ -14,7 +14,7 @@ public class Livre implements Document {
 	private static int cptLivre = 0;
 	private static final long reservationDelay = 1000 * 2 * 3600; // 2 heures
 	private static final long empruntDelay = 1000 * 3600 * 24 * 7 * 2; // 2 semaines
-	private static final double probaDegradation = 0.1;
+	private static final double probaDegradation = 0.1; // 10% de chance de dégradation au retour
 	
 	private int numero;
 	private String titre;
@@ -24,6 +24,11 @@ public class Livre implements Document {
 	private ArrayList<Abonne> enAttente;
 	private boolean enRetard;
 	
+	/**
+	 * Constructeur de la classe Livre
+	 * @param titre Titre du livre
+	 * @param auteur Auteur du livre
+	 */
 	public Livre(String titre, String auteur) {
 		this.numero = cptLivre++;
 		this.aboEmprunt = null;
@@ -34,6 +39,11 @@ public class Livre implements Document {
 		this.enRetard = false;
 	}
 	
+	/**
+	 * Methode appelée quand le livre est en retard
+	 * Il interdit l'abonné d'emprunter et de réserver un
+	 * autre livre.
+	 */
 	public void setEnRetard() {
 		this.enRetard = true;
 		aboEmprunt.interdire();
@@ -106,23 +116,40 @@ public class Livre implements Document {
 		Mail.send(enAttente, this);
 	}
 	
+	/**
+	 * Annule la réservation d'un abonné
+	 */
 	public synchronized void supprReservation() {
 		this.aboReserve = null;
 	}
 	
+	/**
+	 * Donne le titre du livre
+	 * @return Le titre
+	 */
 	public String getTitre() {
 		return titre;
 	}
 
+	/**
+	 * Donne l'auteur du livre
+	 * @return L'auteur
+	 */
 	public String getAuteur() {
 		return auteur;
 	}
 	
+	/**
+	 * Lance le timer de la réservation
+	 */
 	private void setTimerReservation(){
 		Timer timerReserv = new Timer("timerReservation" + this.numero());
 		timerReserv.schedule(new TimerTaskReservLivre(this), reservationDelay);
 	}
 	
+	/**
+	 * Lance le timer de l'emprunt
+	 */
 	private void setTimerEmprunt() {
 		Timer timerEmprunt = new Timer("timerEmprunt"+this.numero());
 		timerEmprunt.schedule(new TimerTaskEmpruntLivre(this), empruntDelay);
