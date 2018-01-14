@@ -44,7 +44,7 @@ public class Livre implements Document {
 	 * Il interdit l'abonné d'emprunter et de réserver un
 	 * autre livre.
 	 */
-	public void setEnRetard() {
+	public synchronized void setEnRetard() {
 		this.enRetard = true;
 		aboEmprunt.interdire();
 	}
