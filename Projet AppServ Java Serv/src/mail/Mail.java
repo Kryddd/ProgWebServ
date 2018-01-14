@@ -54,7 +54,7 @@ public class Mail {
 				message.setText("Cher·e lecteur·rice " + ab.getPrenom() + " " + ab.getNom() + ","
 						+ "\n\n Le livre " + livre.getTitre() + " de " + livre.getAuteur()
 						+ " (numéro: " + livre.numero() + ") est disponible dans notre bibliotheque.\n"
-						+ "A bientot.						BiblioBrette");
+						+ "A bientot.\n\nBiblioBrette");
 	
 				Transport.send(message);
 			}
