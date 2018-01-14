@@ -1,5 +1,6 @@
 package documents;
 
+import java.util.ArrayList;
 import java.util.Timer;
 
 import bibliotheque.Abonne;
@@ -7,6 +8,7 @@ import bibliotheque.Document;
 import bibliotheque.PasLibreException;
 import documents.timers.TimerTaskEmpruntLivre;
 import documents.timers.TimerTaskReservLivre;
+import mail.Mail;
 
 public class Livre implements Document {
 	private static int cptLivre = 0;
@@ -19,7 +21,7 @@ public class Livre implements Document {
 	private String auteur;
 	private Abonne aboEmprunt;
 	private Abonne aboReserve;
-	
+	private ArrayList<Abonne> enAttente;
 	private boolean enRetard;
 	
 	public Livre(String titre, String auteur) {
@@ -28,6 +30,7 @@ public class Livre implements Document {
 		this.aboReserve = null;
 		this.titre = titre;
 		this.auteur = auteur;
+		this.enAttente = new ArrayList<>();
 		this.enRetard = false;
 	}
 	
@@ -80,8 +83,10 @@ public class Livre implements Document {
 				throw new PasLibreException("Erreur : Le livre selectionné est reservé par quelqu'un d'autre");
 			}
 		}
-		else {			
-			throw new PasLibreException("Erreur : Le livre selectionné est déja emprunté");
+		else {
+			this.enAttente.add(ab);
+			throw new PasLibreException("Erreur : Le livre selectionné est déja emprunté."
+					+ " Un mail vous sera envoyé lorsqu'il sera disponible");
 		}
 	}
 
@@ -98,6 +103,7 @@ public class Livre implements Document {
 		
 		this.aboEmprunt = null;
 		this.enRetard = false;
+		Mail.send(enAttente, this);
 	}
 	
 	public synchronized void supprReservation() {

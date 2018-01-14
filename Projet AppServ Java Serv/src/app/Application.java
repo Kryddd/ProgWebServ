@@ -11,17 +11,14 @@ public class Application {
 	public static void main(String[] args) {
 		Bibliotheque biblio = new Bibliotheque();
 		// Ajout d'abonnés
-		biblio.addAbonne(new Abonne("Antoine","PAVY"));
-		biblio.addAbonne(new Abonne("Arthur","CAYET"));
-		biblio.addAbonne(new Abonne("Jacques","COUDERC"));
-		biblio.addAbonne(new Abonne("Ash","KETCHUM"));
-		biblio.addAbonne(new Abonne("Emmanuel","MACRON"));
-		biblio.addAbonne(new Abonne("Peter","PAN"));
-		biblio.addAbonne(new Abonne("Kylo","REN"));
-		biblio.addAbonne(new Abonne("Luke","SKYWALKER"));
+		biblio.addAbonne(new Abonne("Antoine","PAVY", "antoine.pavy@etu.parisdescartes.fr"));
+		biblio.addAbonne(new Abonne("Arthur","CAYET", "arthur.cayet@etu.parisdescartes.fr"));
+		biblio.addAbonne(new Abonne("Jacques","COUDERC", "jaccouderc@gmail.com"));
+		biblio.addAbonne(new Abonne("Pierre","COUDERC", "pierre.couderc.portable@gmail.com"));
+		biblio.addAbonne(new Abonne("Jean-François","Brette", "jean-francois.brette@parisdescartes.fr"));
 		
 		// Ajout de livres
-		biblio.addDocument(new Livre("La PÃªche pour les Nuls","Vincent LALU"));
+		biblio.addDocument(new Livre("La Peche pour les Nuls","Vincent LALU"));
 		biblio.addDocument(new Livre("Kaleb","Myra ELJUNDIR"));
 		biblio.addDocument(new Livre("Kaleb II","Myra ELJUNDIR"));
 		biblio.addDocument(new Livre("Kaleb III","Myra ELJUNDIR"));

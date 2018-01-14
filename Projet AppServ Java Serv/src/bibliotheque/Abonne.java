@@ -10,7 +10,16 @@ public class Abonne {
 	private int numero;
 	private String prenom;
 	private String nom;
+	private String email;
 	private boolean interditEmprunt;
+	
+	public Abonne(String prenom, String nom, String email) {
+		this.numero = cptAbonne++;
+		this.prenom = prenom;
+		this.nom = nom;
+		this.email = email;
+		this.interditEmprunt = false;
+	}
 	
 	public String getPrenom() {
 		return prenom;
@@ -19,12 +28,9 @@ public class Abonne {
 	public String getNom() {
 		return nom;
 	}
-
-	public Abonne(String prenom, String nom) {
-		this.numero = cptAbonne++;
-		this.prenom = prenom;
-		this.nom = nom;
-		this.interditEmprunt = false;
+	
+	public String getEmail() {
+		return this.email;
 	}
 	
 	public int numero() {
