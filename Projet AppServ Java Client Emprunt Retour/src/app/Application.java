@@ -24,13 +24,15 @@ public class Application {
 		while(inputIsGood==false){
 			System.out.println("MENU DES SERVICES\n1 : Emprunt\n2 : Retour");
 			try {
+				
+				// Choix du service (emprunt ou retour)
 				line = clavier.readLine();
 				int formatedinput = -1;
 				if(line.length() == 1){
 					formatedinput = Integer.parseInt(line);
 				}
-				System.out.println("\ninput :" + line);
-				//Le client a selectionnÃ© un emprunt
+				
+				//Le client a selectionné un emprunt
 				if(formatedinput == 1){
 					inputIsGood = true;
 					try {
@@ -40,19 +42,19 @@ public class Application {
 						PrintWriter sOut = new PrintWriter(socket.getOutputStream(), true);
 							
 							
-						// ConnectÃ©!
-						System.out.println("ConnectÃ© au serveur d'emprunt (" + socket.getPort() + ")");
+						// Connecté!
+						System.out.println("Connecté au serveur d'emprunt (" + socket.getPort() + ")");
 						
 						
 						// Envois au serveur
-						System.out.println("Entrez le numero du livre a emprunter :");
+						System.out.println("Entrez le numero du livre à emprunter :");
 						line = clavier.readLine();
 						sOut.println(line);
-						System.out.println("Entrez votre numero d'abonne :");
+						System.out.println("Entrez votre numero d'abonné :");
 						line = clavier.readLine();
 						sOut.println(line);
 						
-						// RÃ©ponse du serveur
+						// Réponse du serveur
 						line = sIn.readLine();
 						
 						// Affiche la reponse du serveur
@@ -65,7 +67,7 @@ public class Application {
 					
 					
 				
-				//Le client a selectionnÃ© un emprunt
+				//Le client a selectionné un retour
 				else if(formatedinput == 2){
 					inputIsGood = true;
 					try {
@@ -75,8 +77,8 @@ public class Application {
 						PrintWriter sOut = new PrintWriter(socket.getOutputStream(), true);
 							
 							
-						// ConnectÃ©!
-						System.out.println("ConnectÃ© au serveur de (" + socket.getPort() + ")");
+						// Connecté!
+						System.out.println("Connecté au serveur de (" + socket.getPort() + ")");
 						
 						// TODO faire la relation livre Emprunter/Abonne
 						// Envois au serveur
@@ -88,7 +90,7 @@ public class Application {
 						line = clavier.readLine();
 						sOut.println(line);
 
-						// RÃ©ponse du serveur
+						// Réponse du serveur
 						line = sIn.readLine();
 						
 						// Affiche la reponse du serveur
@@ -99,7 +101,7 @@ public class Application {
 					}
 				}
 				else{
-					System.out.println("DÃ©solÃ© je n'ai pas compris votre demande.\nVeuillez entrer 1 ou 2\n");
+					System.out.println("Entrée non valide.");
 				}
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block

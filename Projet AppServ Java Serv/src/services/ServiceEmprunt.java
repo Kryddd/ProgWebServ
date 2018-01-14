@@ -32,40 +32,52 @@ public class ServiceEmprunt extends Service{
 	@Override
 	public void run() {
 		String err = "";
-		Boolean numtrouve = false;
-		Boolean abotrouve = false;
+		Boolean docTrouve = false;
+		Boolean aboTrouve = false;
+		Document docEmprunt = null;
 		System.out.println("Connexion emprunt " + getNumero() + " demarrée");
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
 			PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
 			
+			// Demande du client
 			int numDocument = Integer.parseInt(in.readLine());
 			int numAbonne = Integer.parseInt(in.readLine());
 		
+			// Recherche du document
 			for (Document doc : getBiblio().getDocs()) {
 				if(doc.numero() == numDocument){
-					numtrouve = true;
-					for (Abonne abo : getBiblio().getAbonnes()){
-						if(abo.numero() == numAbonne){
-							abotrouve = true;
-							try {
-								doc.emprunter(abo);
-							} catch (PasLibreException e) {
-								err += e.getMessage();
-
-							}
-						}
-					}
+					docTrouve = true;
+					docEmprunt = doc;
 				}
 			} 
 			
-			if (numtrouve == false) {
+			// Recherche de l'abonné et emprunt si le doc est dispo
+			for (Abonne abo : getBiblio().getAbonnes()){
+				if(abo.numero() == numAbonne){
+					aboTrouve = true;
+					
+					if(docTrouve) {
+						try {
+							docEmprunt.emprunter(abo);
+						} 
+						catch (PasLibreException e) {
+							err += e.getMessage();
+	
+						}
+					}
+				}
+			}
+			
+			if (docTrouve == false) {
 				err +="Numéro livre inconnu. ";
 			}
-			if (abotrouve == false) {
+			if (aboTrouve == false) {
 				err+="Numéro abonné inconnu.";
 			}
-			if(numtrouve && abotrouve) {
+			
+			// Réponse au client
+			if(err.equals("")) {
 				out.println("Emprunt du document numero " + numDocument + " effectuée");
 			}
 			else {

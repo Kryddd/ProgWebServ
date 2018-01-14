@@ -34,8 +34,10 @@ public class ServiceReservation extends Service {
 	public void run() {
 		System.out.println("Connexion reservation " + getNumero() + " demarrée");
 		String err = "";
-		Boolean numtrouve = false;
-		Boolean abotrouve = false;
+		Boolean docTrouve = false;
+		Boolean aboTrouve = false;
+		Document docReserv = null;
+		
 		try {
 			BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
 			PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
@@ -43,29 +45,38 @@ public class ServiceReservation extends Service {
 			int numDocument = Integer.parseInt(in.readLine());
 			int numAbonne = Integer.parseInt(in.readLine());
 			
+			// Recherche du document
 			for (Document doc : getBiblio().getDocs()) {
 				if(doc.numero() == numDocument){
-					numtrouve = true;
-					for (Abonne abo : getBiblio().getAbonnes()){
-						if(abo.numero() == numAbonne){
-							abotrouve = true;
-							try {
-								doc.reserver(abo);
-							} catch (PasLibreException e) {
-								err += e.getMessage();
-							}
+					docTrouve = true;
+					docReserv = doc;
+				}
+			}
+			
+			// Recherche de l'abonné et reservation si le doc est dispo
+			for (Abonne abo : getBiblio().getAbonnes()){
+				if(abo.numero() == numAbonne){
+					aboTrouve = true;
+					
+					if(docReserv != null) {
+						try {
+							docReserv.reserver(abo);
+						} 
+						catch (PasLibreException e) {
+							err += e.getMessage();
 						}
 					}
 				}
 			}
-			if (numtrouve == false) {
+			
+			if (docTrouve == false) {
 				err +="Numéro livre inconnu. ";
 			}
-			if (abotrouve == false) {
+			if (aboTrouve == false) {
 				err+="Numéro abonné inconnu.";
 			}
 			
-			if(numtrouve && abotrouve) {
+			if(err.equals("")) {
 				out.println("Reservation du document numero " + numDocument + " effectuée");
 			}
 			else {

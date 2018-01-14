@@ -36,16 +36,19 @@ public class ServiceRetour extends Service {
 			BufferedReader in = new BufferedReader(new InputStreamReader(super.getSocket().getInputStream()));
 			PrintWriter out = new PrintWriter(super.getSocket().getOutputStream(), true);
 			
+			// Demande du client
 			int numLivre = Integer.parseInt(in.readLine());
-			//int numAbonne = Integer.parseInt(in.readLine());
 			
+			// Recherche du document et retour
 			for (Document doc : getBiblio().getDocs()) {
 				if(doc.numero() == numLivre){
 					numtrouve = true;
 					doc.retour();
 				}
 			}
-			if (numtrouve == false){
+			
+			// Réponse au client
+			if (!numtrouve){
 				out.println("Numéro livre inconnu.");
 			}else {
 				out.println("Livre retourné avec succés !");
