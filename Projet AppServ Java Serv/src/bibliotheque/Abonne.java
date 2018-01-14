@@ -5,7 +5,7 @@ import java.util.Timer;
 import bibliotheque.timers.TimerTaskAbInterdit;
 
 public class Abonne {
-	private static final long interditDelay = 60000; // 1 mois
+	private static final long interditDelay = 1000 * 3600 * 24 * 7 * 4; // 1 mois
 	private static int cptAbonne = 0;
 	private int numero;
 	private String prenom;
